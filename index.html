@@ -732,7 +732,7 @@ body.aurora ::-webkit-scrollbar{width:6px}body.aurora ::-webkit-scrollbar-track{
     <span class="h-sub">ELECTRONIC SERVICE MANUAL</span>
     <div class="h-divider"></div>
     <span class="h-gen-badge" id="genBadge">MK7 &middot; 7TH GEN</span>
-    <img src="./mk7/en/img/TTLHONDA.PNG" alt="Honda" class="h-honda-logo">
+    <img src="./mk8/en/img/TTLHONDA.PNG" alt="Honda" class="h-honda-logo">
   </div>
   <div class="h-gradient"></div>
   <div class="h-mode-center">
@@ -750,8 +750,8 @@ body.aurora ::-webkit-scrollbar{width:6px}body.aurora ::-webkit-scrollbar-track{
     </div></div>
     <hr class="sep-line">
     <div class="sec"><div class="sec-label"><span class="sec-label-txt">Manual Type</span></div><div class="mt-row">
-      <div class="mt-btn active" id="btnSM" onclick="selMT('SM')"><input type="radio" name="mt" id="radSM" checked><img class="mt-img" src="./mk7/en/img/DM_SHOP_MANUAL.PNG" alt=""><span class="mt-ico">&#128295;</span><span>Shop Manual</span></div>
-      <div class="mt-btn" id="btnBM" onclick="selMT('BM')"><input type="radio" name="mt" id="radBM"><img class="mt-img" src="./mk7/en/img/DM_BODY_RIPEA.PNG" alt=""><span class="mt-ico">&#128663;</span><span>Body Repair</span></div>
+      <div class="mt-btn active" id="btnSM" onclick="selMT('SM')"><input type="radio" name="mt" id="radSM" checked><img class="mt-img" src="./mk8/en/img/DM_SHOP_MANUAL.PNG" alt=""><span class="mt-ico">&#128295;</span><span>Shop Manual</span></div>
+      <div class="mt-btn" id="btnBM" onclick="selMT('BM')"><input type="radio" name="mt" id="radBM"><img class="mt-img" src="./mk8/en/img/DM_BODY_RIPEA.PNG" alt=""><span class="mt-ico">&#128663;</span><span>Body Repair</span></div>
     </div></div>
     <hr class="sep-line">
     <div class="sec"><div class="sec-label"><span class="sec-label-txt">System / Component</span></div><div id="treePanel"><div id="treeContent" class="no-res">Select a model to load</div></div></div>
@@ -1084,7 +1084,12 @@ function Cts(key,anc){if(!key)return;var u=bp()+"/html/"+key+".html";if(anc&&anc
 function Tsl(k,sct,sc,sys,comp,sitq){curKey=k;curSct=sct;curSc=sc;curSys=sys;curComp=comp;curSitq=sitq}
 function Old(obj){try{var t="";if(obj&&obj.contentDocument)t=obj.contentDocument.title;else if(obj&&obj.document)t=obj.document.title;if(t)document.getElementById("cTitle").textContent=t}catch(e){}}
 function Jmp(){}
-function Prt(key,data){if(!key){doPrint();return}var u=bp()+"/html/"+key+".html";if(data)u+="#"+data;window.open(u,"ESM_ZOOM","width=1024,height=700,scrollbars=yes,resizable=yes,menubar=yes,toolbar=yes")}
+function Prt(key,data){if(!key){doPrint();return}var u=bp()+"/html/"+key+".html";if(data)u+="#"+data;
+  // Resolve to an absolute URL against THIS document. Prt is usually invoked from
+  // inside the content iframe (via parent.Prt), and window.open resolves a relative
+  // URL against the caller's (iframe's) base — which would double the mk7/en/html path.
+  try{u=new URL(u,document.baseURI).href}catch(e){}
+  window.open(u,"ESM_ZOOM","width=1024,height=700,scrollbars=yes,resizable=yes,menubar=yes,toolbar=yes")}
 function Scl(){}
 
 /* ════════════════════════════════════════════
